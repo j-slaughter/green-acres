@@ -1,3 +1,4 @@
+// This is the home page associated with the route /
 import GreenAcresLogo from '@/app/ui/greenacres-logo';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -6,7 +7,7 @@ import Image from 'next/image';
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6 bg-amber-50">
+    <main className="flex min-h-screen flex-col p-6 bg-lime-50">
       <div className="flex h-20 shrink-0 items-end rounded-lg bg-green-500 p-4 md:h-52">
         <GreenAcresLogo />
       </div>
