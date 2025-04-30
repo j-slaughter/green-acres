@@ -1,5 +1,4 @@
-// This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
-// https://nextjs.org/learn/dashboard-app/fetching-data
+// This file contains placeholder data
 const users = [
   {
     id: '410544b2-4001-4271-9855-fec4b6a6442a',
@@ -53,79 +52,79 @@ const invoices = [
     customer_id: customers[0].id,
     amount: 15795,
     status: 'pending',
-    date: '2022-12-06',
+    date: '2023-12-06',
   },
   {
     customer_id: customers[1].id,
     amount: 20348,
     status: 'pending',
-    date: '2022-11-14',
+    date: '2023-11-14',
   },
   {
     customer_id: customers[4].id,
     amount: 3040,
     status: 'paid',
-    date: '2022-10-29',
+    date: '2023-10-29',
   },
   {
     customer_id: customers[3].id,
     amount: 44800,
     status: 'paid',
-    date: '2023-09-10',
+    date: '2024-09-10',
   },
   {
     customer_id: customers[5].id,
     amount: 34577,
     status: 'pending',
-    date: '2023-08-05',
+    date: '2024-08-05',
   },
   {
     customer_id: customers[2].id,
     amount: 54246,
     status: 'pending',
-    date: '2023-07-16',
+    date: '2024-07-16',
   },
   {
     customer_id: customers[0].id,
     amount: 666,
     status: 'pending',
-    date: '2023-06-27',
+    date: '2024-06-27',
   },
   {
     customer_id: customers[3].id,
     amount: 32545,
     status: 'paid',
-    date: '2023-06-09',
+    date: '2024-06-09',
   },
   {
     customer_id: customers[4].id,
     amount: 1250,
     status: 'paid',
-    date: '2023-06-17',
+    date: '2024-06-17',
   },
   {
     customer_id: customers[5].id,
     amount: 8546,
     status: 'paid',
-    date: '2023-06-07',
+    date: '2024-06-07',
   },
   {
     customer_id: customers[1].id,
     amount: 500,
     status: 'paid',
-    date: '2023-08-19',
+    date: '2024-08-19',
   },
   {
     customer_id: customers[5].id,
     amount: 8945,
     status: 'paid',
-    date: '2023-06-03',
+    date: '2024-06-03',
   },
   {
     customer_id: customers[2].id,
     amount: 1000,
     status: 'paid',
-    date: '2022-06-05',
+    date: '2024-06-05',
   },
 ];
 
