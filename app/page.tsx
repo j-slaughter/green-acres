@@ -2,6 +2,7 @@ import GreenAcresLogo from '@/app/ui/greenacres-logo';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { lusitana } from './ui/fonts';
+import Image from 'next/image';
 
 export default function Page() {
   return (
@@ -28,7 +29,21 @@ export default function Page() {
           </Link>
         </div>
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
-          {/* Add Hero Images Here */}
+          {/* Hero Images */}
+          <Image
+            src="/hero-desktop.png"
+            width={1024}
+            height={1024}
+            className="hidden md:block"
+            alt="Generated images of the dashboard project showing desktop version"
+          />
+          <Image
+            src="/hero-mobile.png"
+            width={1024}
+            height={1024}
+            className="block md:hidden"
+            alt="Generated images of the dashboard project showing mobile version"
+          />
         </div>
       </div>
     </main>
