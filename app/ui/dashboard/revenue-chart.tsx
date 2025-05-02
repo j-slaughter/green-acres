@@ -1,3 +1,4 @@
+// This is a React Server Component (fetches data for SSR). This is the default for Nextjs React components.
 import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
@@ -9,7 +10,6 @@ import { fetchRevenue } from '@/app/lib/data';
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-// This is an async React Server Component (fetches data)
 export default async function RevenueChart() {
   // Get revenue data
   const revenue = await fetchRevenue();

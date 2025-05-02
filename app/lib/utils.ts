@@ -1,3 +1,4 @@
+// This file contains the utility functions like for formatting data.
 import { Revenue } from './definitions';
 
 export const formatCurrency = (amount: number) => {
@@ -7,10 +8,7 @@ export const formatCurrency = (amount: number) => {
   });
 };
 
-export const formatDateToLocal = (
-  dateStr: string,
-  locale: string = 'en-US',
-) => {
+export const formatDateToLocal = (dateStr: string, locale: string = 'en-US') => {
   const date = new Date(dateStr);
   const options: Intl.DateTimeFormatOptions = {
     day: 'numeric',
@@ -57,13 +55,5 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the current page is somewhere in the middle,
   // show the first page, an ellipsis, the current page and its neighbors,
   // another ellipsis, and the last page.
-  return [
-    1,
-    '...',
-    currentPage - 1,
-    currentPage,
-    currentPage + 1,
-    '...',
-    totalPages,
-  ];
+  return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 };

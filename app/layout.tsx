@@ -1,3 +1,4 @@
+// This is the root layout for the app. The page component is passed as the children prop.
 // Add global styles
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';

@@ -1,10 +1,10 @@
+// This is a React Server Component (fetches data for SSR). This is the default for Nextjs React components.
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchLatestInvoices } from '@/app/lib/data';
 
-// This is an async React Server Component (fetches data)
 export default async function LatestInvoices() {
   // Get latest invoices
   const latestInvoices = await fetchLatestInvoices();

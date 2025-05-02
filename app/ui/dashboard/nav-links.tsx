@@ -1,5 +1,5 @@
 // This is the dashboard sidebar navigation links
-// Add "use client" to turn nav-links.tsx into a Client Component to use usePathname React hook
+// Add "use client" to turn NavLinks into a Client Component to use usePathname React hook
 'use client';
 
 import Link from 'next/link';

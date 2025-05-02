@@ -1,3 +1,4 @@
+// This file contains all the data fetching functions used in the app.
 import postgres from 'postgres';
 import {
   CustomerField,
