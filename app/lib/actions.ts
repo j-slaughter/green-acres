@@ -10,6 +10,7 @@ import postgres from 'postgres';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
+// Use Zod to update the expected types
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string(),
@@ -38,5 +39,23 @@ export async function createInvoice(formData: FormData) {
   // Clear the client-side router cache and trigger a new request to the server
   revalidatePath('/dashboard/invoices');
   // Redirect user back to invoices page
+  redirect('/dashboard/invoices');
+}
+
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+
+export async function updateInvoice(id: string, formData: FormData) {
+  // Extract and validate form data
+  const { customerId, amount, status } = UpdateInvoice.parse({
+    customerId: formData.get('customerId'),
+    amount: formData.get('amount'),
+    status: formData.get('status'),
+  });
+  // Store amount as cents
+  const amountInCents = amount * 100;
+  // Update invoice in database
+  await sql`UPDATE invoices SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status} WHERE id = ${id}`;
+  // Clear client cache and redirect user back to invoices
+  revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
