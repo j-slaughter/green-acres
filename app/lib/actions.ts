@@ -34,11 +34,16 @@ export async function createInvoice(formData: FormData) {
   const amountInCents = amount * 100;
   // Store date [YYYY-MM-DD]
   const date = new Date().toISOString().split('T')[0];
-  // Create invoice in database
-  await sql`INSERT INTO invoices (customer_id, amount, status, date) VALUES (${customerId}, ${amountInCents}, ${status}, ${date})`;
+  try {
+    // Create invoice in database
+    await sql`INSERT INTO invoices (customer_id, amount, status, date) VALUES (${customerId}, ${amountInCents}, ${status}, ${date})`;
+  } catch (error) {
+    console.error(error);
+  }
   // Clear the client-side router cache and trigger a new request to the server
   revalidatePath('/dashboard/invoices');
   // Redirect user back to invoices page
+  // Per Next.js docs, works by throwing an error so must be outside try/catch block or will trigger catch
   redirect('/dashboard/invoices');
 }
 
@@ -53,16 +58,24 @@ export async function updateInvoice(id: string, formData: FormData) {
   });
   // Store amount as cents
   const amountInCents = amount * 100;
-  // Update invoice in database
-  await sql`UPDATE invoices SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status} WHERE id = ${id}`;
+  try {
+    // Update invoice in database
+    await sql`UPDATE invoices SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status} WHERE id = ${id}`;
+  } catch (error) {
+    console.error(error);
+  }
   // Clear client cache and redirect user back to invoices
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
 
 export async function deleteInvoice(id: string) {
-  // Delete invoice from database
-  await sql`DELETE FROM invoices WHERE id = ${id}`;
+  try {
+    // Delete invoice from database
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+  } catch (error) {
+    console.error(error);
+  }
   // Clear client cache and trigger new request to server to re-render table
   revalidatePath('/dashboard/invoices');
 }
