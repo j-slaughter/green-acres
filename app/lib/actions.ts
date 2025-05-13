@@ -13,15 +13,29 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 // Use Zod to update the expected types
 const FormSchema = z.object({
   id: z.string(),
-  customerId: z.string(),
-  amount: z.coerce.number(),
-  status: z.enum(['pending', 'paid']),
+  customerId: z.string({
+    invalid_type_error: 'Please select a customer.',
+  }),
+  amount: z.coerce.number().gt(0, { message: 'Please enter an amount greater than $0.' }),
+  status: z.enum(['pending', 'paid'], {
+    invalid_type_error: 'Please select an invoice status.',
+  }),
   date: z.string(),
 });
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createInvoice(formData: FormData) {
+// Create State type
+export type State = {
+  errors?: {
+    customerId?: string[];
+    amount?: string[];
+    status?: string[];
+  };
+  message?: string | null;
+};
+
+export async function createInvoice(prevState: State, formData: FormData) {
   // Extract the form data
   const rawFormData = {
     customerId: formData.get('customerId'),
@@ -29,7 +43,17 @@ export async function createInvoice(formData: FormData) {
     status: formData.get('status'),
   };
   // Validate data (formatting and type validation)
-  const { customerId, amount, status } = CreateInvoice.parse(rawFormData);
+  const validatedFields = CreateInvoice.safeParse(rawFormData);
+  console.log(validatedFields);
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to create invoice.',
+    };
+  }
+  // Prepare data for insertion into the database
+  const { customerId, amount, status } = validatedFields.data;
   // Store amount as cents in database
   const amountInCents = amount * 100;
   // Store date [YYYY-MM-DD]
@@ -39,6 +63,10 @@ export async function createInvoice(formData: FormData) {
     await sql`INSERT INTO invoices (customer_id, amount, status, date) VALUES (${customerId}, ${amountInCents}, ${status}, ${date})`;
   } catch (error) {
     console.error(error);
+    // If a database error occurs, return a more specific error.
+    return {
+      message: 'Database Error: Failed to create invoice.',
+    };
   }
   // Clear the client-side router cache and trigger a new request to the server
   revalidatePath('/dashboard/invoices');
